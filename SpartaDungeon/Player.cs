@@ -47,24 +47,17 @@ namespace SpartaDungeon
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
 
-            bool isSuccess;
-            do      // 0을 입력할 때 까지 반복
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            int select = int.Parse( Console.ReadLine());
+
+            if(select == 0)
             {
-                Console.WriteLine("원하시는 행동을 입력해주세요.");
-                int select = int.Parse( Console.ReadLine());
-
-                if(select == 0)
-                {
-                    lobby.StartScene();
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                }
-
-                isSuccess = select == 0;
+                lobby.StartScene();
             }
-            while(!isSuccess);          
+            else
+            {
+               Console.WriteLine("잘못된 입력입니다.");
+            }       
         }
     }
 }

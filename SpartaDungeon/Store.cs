@@ -8,7 +8,7 @@ namespace SpartaDungeon
 {
     internal class Store
     {
-
+        
 
         public void ShowStore()
         {
