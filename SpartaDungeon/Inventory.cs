@@ -21,19 +21,19 @@ namespace SpartaDungeon
                 return instance;
             }
         }
-        public List<string> items = new List<string>();
+        public List<string> items = new List<string>(); // 장비를 담을 리스트 생성
         private bool inventoryDisplayed = false; // 인벤토리가 아직 한번도 표시 안되었다는 것을 나타내는 변수 생성
         public List<int> selectedItems = new List<int>(); //선택한 아이템의 인덱스를 저장할 리스트
         
 
         public void ManageMyInven()
-        {
+        {    //장비 생성
              string[] item = {"천 갑옷", "방어력 + 2", "갑옷이지만 안전은 보장 못합니다.",
                              "뾰족한 창", "공격력 + 3", "찌르기에 특화된 무기.",
                             "낡은 검", "공격력 + 1", "금방이라도 부서질 것 같다."};
             for ( int i = 0; i < item.Length; i++ )
             {
-                items.Add(item[i] );
+                items.Add(item[i] );  //장비를 리스트에 추가해주기
             }
         }
 
@@ -114,18 +114,39 @@ namespace SpartaDungeon
 
                 if (isSelected)
                 {
-                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}"); //선택한 아이템 앞엔 [E] 붙여줌
                 }
                 else
                 {
-                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}"); // 아니면 그냥 출력
                 }
             }
             
             Console.WriteLine();
-            Console.WriteLine("착용할 장비 번호를 입력해주세요.");
+            Console.WriteLine("착용 또는 해제할 장비 번호를 입력해주세요.");
             Console.Write(">>");
-            int selectEquip = int.Parse(Console.ReadLine());
+
+            int selectEquip;  //선택한 장비 변수 생성
+
+            // 사용자가 유효한 번호를 입력할 때까지 반복해서 입력을 받음
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                // 입력이 숫자인지 확인
+                if (int.TryParse(input, out selectEquip))
+                {
+                    // 입력이 유효한지 확인
+                    if (selectEquip >= 1 && selectEquip <= items.Count / 3)
+                    {
+                        break; // 유효한 입력일 경우 반복문 탈출
+                    }
+                }
+
+                // 잘못된 입력 메시지 출력
+                Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
+                Console.Write(">>");
+            }
 
             // 선택한 아이템의 선택 여부를 반전시킴
             if (selectedItems.Contains(selectEquip))
