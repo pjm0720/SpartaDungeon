@@ -67,6 +67,7 @@
         }
         static void Main(string[] args)
         {
+            Console.SetWindowSize(125, 35); // 콘솔 창 크기 조절
             Lobby lobby = new Lobby();
             lobby.StartScene();
         }
