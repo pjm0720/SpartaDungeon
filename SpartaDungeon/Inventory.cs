@@ -88,11 +88,7 @@ namespace SpartaDungeon
             else
             {
                 Console.WriteLine("잘못된 입력입니다.");
-            }
-            
-            
-
-            
+            }   
         }
 
         public void Equip() // 인벤토리 - 장착 관리 창
@@ -174,6 +170,8 @@ namespace SpartaDungeon
                 Console.WriteLine("잘못된 입력입니다.");
             }      
         }
+
+        //장착 장비 옵션 상태창에 반영 하는 로직..
     }
 }
 

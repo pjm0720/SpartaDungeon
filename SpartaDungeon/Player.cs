@@ -12,17 +12,17 @@ namespace SpartaDungeon
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
         public int Level { get; set; }   // 레벨   
-        public int Damage { get; set; }  // 공격력
+        public int Attack { get; set; }  // 공격력
         public int Defense { get; set; }  // 방어력
         public int Health { get; set; }  // 체력
         public int Gold { get; set; }   // 골드 
 
-        public Player(string _name, string _job, int _level, int _damage, int _defense, int _health, int _gold)
+        public Player(string _name, string _job, int _level, int _attack, int _defense, int _health, int _gold)
         {
             Name = _name;
             Job = _job;
             Level = _level;
-            Damage = _damage;
+            Attack = _attack;
             Defense = _defense;
             Health = _health;
             Gold = _gold;
@@ -38,7 +38,7 @@ namespace SpartaDungeon
 
             Console.WriteLine($"Lv. {Level}");
             Console.WriteLine($"{Name}\t ({Job})");
-            Console.WriteLine($"공격력: {Damage}");
+            Console.WriteLine($"공격력: {Attack}");
             Console.WriteLine($"방어력: {Defense}");
             Console.WriteLine($"체력: {Health}");
             Console.WriteLine($"Gold: {Gold} G");
