@@ -11,7 +11,7 @@ namespace SpartaDungeon
         Lobby lobby = new Lobby();
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
-        public int Level { get; }   // 레벨
+        public int Level { get; }   // 레벨   
         public int Damage { get; }  // 공격력
         public int Defense { get; }  // 방어력
         public int Health { get; }  // 체력
@@ -50,6 +50,7 @@ namespace SpartaDungeon
             do
             {
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
+                Console.Write(">>");
                 int select = int.Parse(Console.ReadLine());
 
                 if (select == 0)

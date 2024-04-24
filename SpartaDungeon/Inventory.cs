@@ -8,8 +8,23 @@ namespace SpartaDungeon
 {
     internal class Inventory
     {
+        private static Inventory instance;
+        // 인벤토리 싱글톤 상점에서 끌어다 쓰기위해
+        public static Inventory Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Inventory();
+                }
+                return instance;
+            }
+        }
         public List<string> items = new List<string>();
         private bool inventoryDisplayed = false; // 인벤토리가 아직 한번도 표시 안되었다는 것을 나타내는 변수 생성
+        public List<int> selectedItems = new List<int>(); //선택한 아이템의 인덱스를 저장할 리스트
+        
 
         public void ManageMyInven()
         {
@@ -39,7 +54,17 @@ namespace SpartaDungeon
             Console.WriteLine("[장비 이름]   |   [장비 효과]  | [장비 설명]");
             for ( int i = 0;i < items.Count;i += 3)
             {
-                Console.WriteLine("- "+ items[i] + "\t" + items[i +1] + "\t" + items[i + 2]);
+                int itemsNum = i / 3 + 1;
+                bool isSelected = selectedItems.Contains(itemsNum); // 선택한 아이템인지 확인
+
+                if (isSelected)
+                {
+                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                }
+                else
+                {
+                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                }
             }
             Console.WriteLine();
             Console.WriteLine("1. 장착 관리");
@@ -48,6 +73,7 @@ namespace SpartaDungeon
             Console.WriteLine();
 
             Console.WriteLine("원하시는 행동을 입력해주세요(0 ~ 1 중 선택).");
+            Console.Write(">>");
             int select = int.Parse(Console.ReadLine());
 
             if (select == 1)
@@ -84,46 +110,25 @@ namespace SpartaDungeon
             for (int i = 0; i < items.Count; i += 3)
             {
                 int itemsNum = i / 3 + 1;
-                Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                bool isSelected = selectedItems.Contains(itemsNum); // 선택한 아이템인지 확인
+
+                if (isSelected)
+                {
+                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                }
+                else
+                {
+                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
+                }
             }
             
             Console.WriteLine();
             Console.WriteLine("착용할 장비 번호를 입력해주세요.");
+            Console.Write(">>");
             int selectEquip = int.Parse(Console.ReadLine());
 
-            Console.Clear();
-            Console.WriteLine("[인벤토리 - 장착 관리]");
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
+            selectedItems.Add(selectEquip); // 선택한 아이템의 인덱스를 저장
 
-            Console.WriteLine();
-            Console.WriteLine("[아이템 목록]");
-            Console.WriteLine("[장비 이름]   |   [장비 효과]  | [장비 설명]");
-
-            // 아이템 목록 출력 및 선택된 아이템에 [E] 추가
-            for (int i = 0; i < items.Count; i += 3)
-            {
-                int itemsNum = i / 3 + 1;
-                switch (selectEquip)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                        if (selectEquip == itemsNum)
-                        {
-                            Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
-                        }
-                        break;
-                    default:
-                        Console.WriteLine("잘못된 입력입니다.");
-                        break;
-                }
-
-            }
-            // switch 문 사용 하면?
 
             Console.WriteLine();
             Console.WriteLine("0. 인벤토리로 이동");

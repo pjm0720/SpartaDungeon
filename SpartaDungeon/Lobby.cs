@@ -38,6 +38,7 @@
             do
             {
                 Console.WriteLine("원하시는 행동을 입력해주세요(1~3 중 선택).");
+                Console.Write(">>");
                 int select = int.Parse(Console.ReadLine());
 
                 if (select == 1)

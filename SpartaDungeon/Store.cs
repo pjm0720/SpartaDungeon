@@ -45,6 +45,27 @@ namespace SpartaDungeon
                 Console.WriteLine($"- {sellItem[i]} \t {sellItem[i + 1]} \t {sellItem[i + 2]} \t");
             }
 
+            Console.WriteLine();
+            Console.WriteLine("1. 아이템 구매");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write(">>");
+            int select = int.Parse(Console.ReadLine());
+
+            if (select == 1)
+            {
+                //구매 페이지 이동
+            }
+            if (select == 0)
+            {
+                Lobby lobby = new Lobby();
+                lobby.StartScene();
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+            }
         }
 
         public void BuyItem(Player player, int itemPrice)
@@ -54,6 +75,7 @@ namespace SpartaDungeon
                 player.Gold -= itemPrice;
                 //인벤토리에 구매한 템 넣어주고
                 // 아이템 목록에서 구매한 아이템 가격대신 구매 완료 띄워주기
+                
 
             }
         }
