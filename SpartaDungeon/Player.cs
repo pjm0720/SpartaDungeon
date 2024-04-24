@@ -11,10 +11,10 @@ namespace SpartaDungeon
         Lobby lobby = new Lobby();
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
-        public int Level { get; }   // 레벨   
-        public int Damage { get; }  // 공격력
-        public int Defense { get; }  // 방어력
-        public int Health { get; }  // 체력
+        public int Level { get; set; }   // 레벨   
+        public int Damage { get; set; }  // 공격력
+        public int Defense { get; set; }  // 방어력
+        public int Health { get; set; }  // 체력
         public int Gold { get; set; }   // 골드
 
         public Player(string _name, string _job, int _level, int _damage, int _defense, int _health, int _gold)
@@ -68,6 +68,11 @@ namespace SpartaDungeon
             
 
            
+        }
+
+        public void EquipItemState()
+        {
+
         }
     }
 }

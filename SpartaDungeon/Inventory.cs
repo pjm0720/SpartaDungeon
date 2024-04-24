@@ -127,7 +127,16 @@ namespace SpartaDungeon
             Console.Write(">>");
             int selectEquip = int.Parse(Console.ReadLine());
 
-            selectedItems.Add(selectEquip); // 선택한 아이템의 인덱스를 저장
+            // 선택한 아이템의 선택 여부를 반전시킴
+            if (selectedItems.Contains(selectEquip))
+            {
+                selectedItems.Remove(selectEquip); // 선택한 아이템이 이미 선택되어 있으면 선택을 해제함
+            }
+            else
+            {
+                selectedItems.Add(selectEquip); // 선택한 아이템이 선택되어 있지 않으면 선택함
+            }
+
 
 
             Console.WriteLine();
