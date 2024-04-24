@@ -15,7 +15,7 @@ namespace SpartaDungeon
         public int Damage { get; }  // 공격력
         public int Defense { get; }  // 방어력
         public int Health { get; }  // 체력
-        public int Gold { get; }   // 골드
+        public int Gold { get; set; }   // 골드
 
         public Player(string _name, string _job, int _level, int _damage, int _defense, int _health, int _gold)
         {
@@ -46,18 +46,27 @@ namespace SpartaDungeon
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
-
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            int select = int.Parse( Console.ReadLine());
-
-            if(select == 0)
+            bool isSuccess;
+            do
             {
-                lobby.StartScene();
+                Console.WriteLine("원하시는 행동을 입력해주세요.");
+                int select = int.Parse(Console.ReadLine());
+
+                if (select == 0)
+                {
+                    lobby.StartScene();
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+
+                isSuccess = select == 0;
             }
-            else
-            {
-               Console.WriteLine("잘못된 입력입니다.");
-            }       
+            while (!isSuccess);
+            
+
+           
         }
     }
 }

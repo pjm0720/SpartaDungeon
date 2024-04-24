@@ -34,36 +34,36 @@
             Console.WriteLine("3. 상점");
 
             Console.WriteLine();
-            
-            Console.WriteLine("원하시는 행동을 입력해주세요(1~3 중 선택).");
-            int select = int.Parse(Console.ReadLine());
+            bool isSuccess;
+            do
+            {
+                Console.WriteLine("원하시는 행동을 입력해주세요(1~3 중 선택).");
+                int select = int.Parse(Console.ReadLine());
 
-            if (select == 1)
-            {
-                //캐릭터 정보창 이동
-                player.ShowPlayerInfo();
-            }
-            else if (select == 2)
-            {
-                //인벤토리 창으로 이동
-                inven.ShowInventory();
-            }
-            else if (select == 3)
-            {
-                // 상점 창으로 이동
-                store.ShowStore();
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다.");
-            }
+                if (select == 1)
+                {
+                    //캐릭터 정보창 이동
+                    player.ShowPlayerInfo();
+                }
+                else if (select == 2)
+                {
+                    //인벤토리 창으로 이동
+                    inven.ShowInventory();
+                }
+                else if (select == 3)
+                {
+                    // 상점 창으로 이동
+                    store.ShowStore();
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
 
-          
-          
-            
-            
-      
-
+                isSuccess = select >= 1 && select <= 3;
+            }
+            while(!isSuccess);
+   
         }
         static void Main(string[] args)
         {
