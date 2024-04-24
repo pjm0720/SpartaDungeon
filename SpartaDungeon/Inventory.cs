@@ -143,7 +143,7 @@ namespace SpartaDungeon
                     }
                 }
 
-                // 잘못된 입력 메시지 출력
+                // 잘못된 입력 메시지 출력 
                 Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
                 Console.Write(">>");
             }

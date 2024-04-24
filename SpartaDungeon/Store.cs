@@ -11,7 +11,7 @@ namespace SpartaDungeon
         
         List<string> sellItem = new List<string>();
         public int itemCost; 
-        public void ItemList()
+        public void ItemList() 
         {
             string[] sellItems = {"철 갑옷", "방어력 + 5", "착용하면 안전은 보장하지만 무거워서 이동 시 불편할 수 있다.",
                                 "철 투구", "방어력 + 5", "머리를 보호해줘요.",

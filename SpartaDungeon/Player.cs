@@ -15,7 +15,7 @@ namespace SpartaDungeon
         public int Damage { get; set; }  // 공격력
         public int Defense { get; set; }  // 방어력
         public int Health { get; set; }  // 체력
-        public int Gold { get; set; }   // 골드
+        public int Gold { get; set; }   // 골드 
 
         public Player(string _name, string _job, int _level, int _damage, int _defense, int _health, int _gold)
         {

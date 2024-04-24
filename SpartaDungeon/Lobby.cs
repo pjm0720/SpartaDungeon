@@ -6,7 +6,7 @@
         {
             Console.Clear();
 
-            Player player = new Player("모험가", "전사", 1, 10, 5, 100, 1500);  //플레이어 클래스 객체 생성
+            Player player = new Player("모험가", "전사", 1, 10, 5, 100, 1500);  //플레이어 클래스 객체 생성 
             Inventory inven = new Inventory();
             Store store = new Store();
 
