@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +9,16 @@ namespace SpartaDungeon
 {
     internal class Player
     {
+        Inventory inventory = new Inventory();
         Lobby lobby = new Lobby();
+        Store store = new Store();
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
         public int Level { get; set; }   // 레벨   
-        public int Attack { get; set; }  // 공격력
-        public int Defense { get; set; }  // 방어력
+        public static int Attack { get; set; }  // 공격력
+        public static int Defense { get; set; }  // 방어력
         public int Health { get; set; }  // 체력
-        public int Gold { get; set; }   // 골드 
+        public static int Gold { get; set; }   // 골드 
 
         public Player(string _name, string _job, int _level, int _attack, int _defense, int _health, int _gold)
         {
@@ -27,6 +30,7 @@ namespace SpartaDungeon
             Health = _health;
             Gold = _gold;
         }
+
         public void ShowPlayerInfo()
         {
             Console.Clear();
@@ -65,14 +69,8 @@ namespace SpartaDungeon
                 isSuccess = select == 0;
             }
             while (!isSuccess);
-            
-
-           
-        }
-
-        public void EquipItemState()
-        {
-
+                    
         }
     }
+
 }

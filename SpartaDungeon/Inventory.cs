@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,42 +10,32 @@ namespace SpartaDungeon
 {
     internal class Inventory
     {
-        private static Inventory instance;
-        // 인벤토리 싱글톤 상점에서 끌어다 쓰기위해
-        public static Inventory Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Inventory();
-                }
-                return instance;
-            }
-        }
+        //Player player = new Player();
         public List<string> items = new List<string>(); // 장비를 담을 리스트 생성
         private bool inventoryDisplayed = false; // 인벤토리가 아직 한번도 표시 안되었다는 것을 나타내는 변수 생성
         public List<int> selectedItems = new List<int>(); //선택한 아이템의 인덱스를 저장할 리스트
-        
+        public int EquipState;
 
         public void ManageMyInven()
         {    //장비 생성
-             string[] item = {"천 갑옷", "방어력 + 2", "갑옷이지만 안전은 보장 못합니다.",
-                             "뾰족한 창", "공격력 + 3", "찌르기에 특화된 무기.",
-                            "낡은 검", "공격력 + 1", "금방이라도 부서질 것 같다."};
+             string[] item = {"천 갑옷", "방어력", "2", "갑옷이지만 안전은 보장 못합니다.",
+                             "뾰족한 창", "공격력", "3", "찌르기에 특화된 무기.",
+                            "낡은 검", "공격력", "1", "금방이라도 부서질 것 같다."};
             for ( int i = 0; i < item.Length; i++ )
             {
                 items.Add(item[i] );  //장비를 리스트에 추가해주기
             }
         }
+      
 
         public void ShowInventory()   //인벤토리 열기
         {
             Console.Clear();
-             if (!inventoryDisplayed) // 인벤토리가 아직 한 번도 표시되지않았는지 검사
+                 //장착 관리에서 인벤토리로 넘어갈 때 인벤토리에있는 for문이 또 작동되는걸 막기 위한 코드
+             if (!inventoryDisplayed)     // 인벤토리가 아직 한 번도 표시되지않았는지 검사
             {
-                ManageMyInven(); // 인벤토리를 한 번만 초기화
-                inventoryDisplayed = true;  // true 바꿔주면서 더 이상 초기화 
+                ManageMyInven();      // 인벤토리를 한 번만 초기화
+                inventoryDisplayed = true;      // true 바꿔주면서 더 이상 초기화 x
             }
 
             Console.WriteLine("[인벤토리]");
@@ -52,20 +44,7 @@ namespace SpartaDungeon
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
             Console.WriteLine("[장비 이름]   |   [장비 효과]  | [장비 설명]");
-            for ( int i = 0;i < items.Count;i += 3)
-            {
-                int itemsNum = i / 3 + 1;
-                bool isSelected = selectedItems.Contains(itemsNum); // 선택한 아이템인지 확인
-
-                if (isSelected)
-                {
-                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
-                }
-                else
-                {
-                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}");
-                }
-            }
+            EquipItem();
             Console.WriteLine();
             Console.WriteLine("1. 장착 관리");
             Console.WriteLine("0. 나가기");
@@ -102,21 +81,8 @@ namespace SpartaDungeon
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
             Console.WriteLine("[장비 이름]   |   [장비 효과]  | [장비 설명]");
-            
-            for (int i = 0; i < items.Count; i += 3)
-            {
-                int itemsNum = i / 3 + 1;
-                bool isSelected = selectedItems.Contains(itemsNum); // 선택한 아이템인지 확인
-
-                if (isSelected)
-                {
-                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}"); //선택한 아이템 앞엔 [E] 붙여줌
-                }
-                else
-                {
-                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} \t {items[i + 2]}"); // 아니면 그냥 출력
-                }
-            }
+            EquipItem(); // 아이템 장착 함수 실행
+         
             
             Console.WriteLine();
             Console.WriteLine("착용 또는 해제할 장비 번호를 입력해주세요.");
@@ -133,7 +99,7 @@ namespace SpartaDungeon
                 if (int.TryParse(input, out selectEquip))
                 {
                     // 입력이 유효한지 확인
-                    if (selectEquip >= 1 && selectEquip <= items.Count / 3)
+                    if (selectEquip >= 1 && selectEquip <= items.Count / 4)
                     {
                         break; // 유효한 입력일 경우 반복문 탈출
                     }
@@ -170,8 +136,27 @@ namespace SpartaDungeon
                 Console.WriteLine("잘못된 입력입니다.");
             }      
         }
+       
+        // 아이템 장착 메소드
+        public void EquipItem()
+        {
+            for (int i = 0; i < items.Count; i += 4)
+            {
+                int itemsNum = i / 4 + 1;
+                bool isSelected = selectedItems.Contains(itemsNum); // 선택한 아이템인지 확인
 
-        //장착 장비 옵션 상태창에 반영 하는 로직..
+                if (isSelected)
+                {
+                    Console.WriteLine($"[E] {itemsNum}. {items[i]} \t {items[i + 1]} + {items[i + 2]}\t {items[i + 3]}"); //선택한 아이템 앞엔 [E] 붙여줌
+                    EquipState += int.Parse(items[i + 2]);
+                    Player.Attack = EquipState;
+                }
+                else
+                {
+                    Console.WriteLine($"{itemsNum}. {items[i]} \t {items[i + 1]} + {items[i + 2]}\t {items[i + 3]}"); // 아니면 그냥 출력
+                }
+            }
+        }
     }
 }
 
