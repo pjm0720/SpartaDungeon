@@ -9,68 +9,28 @@ namespace SpartaDungeon
 {
     internal class Player
     {
-        Inventory inventory = new Inventory();
-        Lobby lobby = new Lobby();
-        Store store = new Store();
+       
+        //생성자 이후에 set하지않겠다 -> 읽기전용
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
-        public int Level { get; set; }   // 레벨   
-        public static int Attack { get; set; }  // 공격력
-        public static int Defense { get; set; }  // 방어력
-        public int Health { get; set; }  // 체력
-        public static int Gold { get; set; }   // 골드 
-
-        public Player(string _name, string _job, int _level, int _attack, int _defense, int _health, int _gold)
+        public int Level { get; }   // 레벨   
+        public int Attack { get; }  // 공격력
+        public int Defense { get;}  // 방어력
+        public int Health { get; }  // 체력
+        public int Gold { get; set; }   // 골드 
+        //생성자의 용도 = 기본 세팅
+        public Player(string name, string job, int level, int attack, int defense, int health, int gold)
         {
-            Name = _name;
-            Job = _job;
-            Level = _level;
-            Attack = _attack;
-            Defense = _defense;
-            Health = _health;
-            Gold = _gold;
+            Name = name;
+            Job = job;
+            Level = level;
+            Attack = attack;
+            Defense = defense;
+            Health = health;
+            Gold = gold;
         }
 
-        public void ShowPlayerInfo()
-        {
-            Console.Clear();
-
-            Console.WriteLine("[상태보기]");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
-
-            Console.WriteLine();
-
-            Console.WriteLine($"Lv. {Level}");
-            Console.WriteLine($"{Name}\t ({Job})");
-            Console.WriteLine($"공격력: {Attack}");
-            Console.WriteLine($"방어력: {Defense}");
-            Console.WriteLine($"체력: {Health}");
-            Console.WriteLine($"Gold: {Gold} G");
-
-            Console.WriteLine();
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine();
-            bool isSuccess;
-            do
-            {
-                Console.WriteLine("원하시는 행동을 입력해주세요.");
-                Console.Write(">>");
-                int select = int.Parse(Console.ReadLine());
-
-                if (select == 0)
-                {
-                    lobby.StartScene();
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                }
-
-                isSuccess = select == 0;
-            }
-            while (!isSuccess);
-                    
-        }
+     
     }
 
 }
