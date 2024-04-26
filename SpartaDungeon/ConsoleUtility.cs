@@ -26,11 +26,11 @@ namespace SpartaDungeon
         
         public static int PromptMenuChoice(int min, int max)  //메뉴 선택 함수
         {
-            while (true)
+            while (true) // 유저가 지정한 번호를 맞게 입력할 때 까지 반복시키기
             {
                 Console.Write("원하시는 행동을 입력해주세요: ");
                 //숫자를 제대로 입력했고,지정한 번호에 맞게 입력했는지 확인하기
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max)
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max) // TryParse 는 파싱이 될지 안될지 확인 해보는 것
                 {
                     return choice;
                 }
@@ -38,17 +38,17 @@ namespace SpartaDungeon
             }
         }
 
-        internal static void ShowTitle(string title)
+        internal static void ShowTitle(string title)      //타이틀을 이쁘게 출력해주기 위해
         {
             Console.ForegroundColor = ConsoleColor.Magenta;   //색 지정해주기
             Console.WriteLine(title);
             Console.ResetColor();
         }
         //string s2 글씨 강조하기
-        public static void PrintTextHightlights(string s1, string s2, string s3 = "")
+        public static void PrintTextHightlights(string s1, string s2, string s3 = "")      // 텍스트 예쁘게 출력해주기 위해 
         {
             Console.Write(s1);
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;      
             Console.Write(s2);
             Console.ResetColor();
             Console.WriteLine(s3);
@@ -76,7 +76,7 @@ namespace SpartaDungeon
             // 한글과 영어는 다르다
             //가나다
             //111111
-            int currentLenght = GetPrintableLength(str);
+            int currentLenght = GetPrintableLength(str);   //이 글자가 몇글자 인지
             int padding = totalLength - currentLenght;
             return str.PadRight(str.Length + padding);
         }

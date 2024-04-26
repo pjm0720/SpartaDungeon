@@ -8,11 +8,10 @@ namespace SpartaDungeon
 {
     public class GameManager
     {
-        private Player player;
-        private List<Item> inventory;
+        private Player player;                //player 클래스 가져오기
+        private List<Item> inventory;           //아이템 리스트로 인벤토리 생성
 
-        private List<Item> storeInventory;
-
+        private List<Item> storeInventory;      //상점 물품 추가할 리스트 생성
 
         public GameManager()
         {
@@ -40,7 +39,7 @@ namespace SpartaDungeon
         public void StartGame()
         {
             Console.Clear();
-            ConsoleUtility.PrintGameHeader();
+            ConsoleUtility.PrintGameHeader();  // 게임 시작화면 띄워주기      
             MainMenu();
         }
 
@@ -86,11 +85,11 @@ namespace SpartaDungeon
             ConsoleUtility.ShowTitle("■상태보기■");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.");
 
-            ConsoleUtility.PrintTextHightlights("Lv. ", player.Level.ToString("00"));   //두글자로만 표시되게 해주기
+            ConsoleUtility.PrintTextHightlights("Lv. ", player.Level.ToString("00"));   //두글자로만 표시되게 해주기  세번 째 매개변수는 ""으로 해놔서 생략가능  
             Console.WriteLine();
             Console.WriteLine($"{player.Name} ( {player.Job} )");
-            // 능력치 강화분을 표현하도록 변경
-            int bonusAtk = inventory.Select(item => item.isEquipped ? item.Atk : 0).Sum(); //아이템이 장착됫으면 공격력을 더해주고 아니면 0 삼항연산자 활용
+            // 장비 선택했을 때 장비의 스탯을 상태창에 반영해주기
+            int bonusAtk = inventory.Select(item => item.isEquipped ? item.Atk : 0).Sum(); //아이템이 장착됫으면 공격력을 더해주고 아니면 0 ->삼항연산자 활용
             int bonusDef = inventory.Select(item => item.isEquipped ? item.Def : 0).Sum();
             int bonusHp = inventory.Select(item => item.isEquipped ? item.Health : 0).Sum();
             ConsoleUtility.PrintTextHightlights("공격력 : ", (player.Attack + bonusAtk).ToString(), bonusAtk > 0 ? $" (+{bonusAtk})" : "");
@@ -163,7 +162,7 @@ namespace SpartaDungeon
                     InventoryMenu();
                     break;
                 default:
-                    inventory[KeyInput - 1].ToggleEquipStatus();
+                    inventory[KeyInput - 1].ToggleEquipStatus(); // -1을 하는 이유는 1을 눌렀을 때 idx 0번을 불러야하기때문 
                     EquipMenu();
                     break;
             }
@@ -186,9 +185,10 @@ namespace SpartaDungeon
             }
             Console.WriteLine();
             Console.WriteLine("1. 아이템 구매");
+            Console.WriteLine("2. 아이템 판매");
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
-            switch (ConsoleUtility.PromptMenuChoice(0, 1))
+            switch (ConsoleUtility.PromptMenuChoice(0, 2))
             {
                 case 0:
                     MainMenu();
@@ -196,19 +196,22 @@ namespace SpartaDungeon
                 case 1:
                     PurchaseMenu();
                     break;
-
+                case 2:
+                    SalesMenu();
+                    break;
             }
 
         }
-
-        private void PurchaseMenu(string? prompt = null)
+        //경고 문구 넣어줄 매개변수 만들어줌
+        private void PurchaseMenu(string? prompt = null)   //prompt 가 null 일수도 있다
         {
-            if (prompt != null)
+            // 경고 문구 만들어줄 코드
+            if (prompt != null)   
             {
                 //1초간 메세지를 띄운 다음에 다시 진행
                 Console.Clear();
                 ConsoleUtility.ShowTitle(prompt);
-                Thread.Sleep(1000);
+                Thread.Sleep(1000);  // 몇 밀리세컨드 동안 멈출건지 -> 여기선 1000밀리세컨드 => 1초
             }
 
             Console.Clear();
@@ -222,7 +225,7 @@ namespace SpartaDungeon
             Console.WriteLine("[아이템 목록]");
             for (int i = 0; i < storeInventory.Count; i++)
             {
-                storeInventory[i].PrintStoreItemDescription(true, i + 1);
+                storeInventory[i].PrintStoreItemDescription(true, i + 1);  
             }
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
@@ -237,9 +240,9 @@ namespace SpartaDungeon
                     break;
                 default:
                     //1. 이미 구매한 경우
-                    if (storeInventory[keyInput - 1].isPurchased) // index 맞추기
+                    if (storeInventory[keyInput - 1].isPurchased) // index 맞추기 작업
                     {
-                        PurchaseMenu("이미 구매한 아이템입니다.");
+                        PurchaseMenu("이미 구매한 아이템입니다."); // 경고 문구 출력 , 재귀 호출 
                     }
                     //2. 돈이 충분해서 살 수 있는 경우
                     else if (player.Gold >= storeInventory[keyInput - 1].Price)
@@ -257,8 +260,49 @@ namespace SpartaDungeon
                     break;
             }
         }  
-        
+        // 아이템 판매
+        public void SalesMenu(string? prompt = null)
+        {
+            // 경고 문구 만들어줄 코드
+            if (prompt != null)
+            {
+                //1초간 메세지를 띄운 다음에 다시 진행
+                Console.Clear();
+                ConsoleUtility.ShowTitle(prompt);
+                Thread.Sleep(1000);  // 몇 밀리세컨드 동안 멈출건지 -> 여기선 1000밀리세컨드 => 1초
+            }
 
+            Console.Clear();
+
+            ConsoleUtility.ShowTitle("■ 상점 ■");
+            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+            Console.WriteLine();
+            Console.WriteLine("[보유 골드]");
+            ConsoleUtility.PrintTextHightlights("", player.Gold.ToString(), " G");
+            Console.WriteLine();
+            Console.WriteLine("[아이템 목록]");
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                inventory[i].PrintItemStatDescription(true, i + 1);  // 나가기는 0번 고정 나머지는 1번부터 배정
+            }
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
+
+            int KeyInput = ConsoleUtility.PromptMenuChoice(0, inventory.Count);
+
+            switch (KeyInput)
+            {
+                case 0:
+                    StoreMenu(); 
+                    break;
+                default:
+                    player.Gold += (int)(inventory[KeyInput - 1].Price * 0.85);    //판매한 아이템의 85퍼 받기
+                    inventory.RemoveAt(KeyInput - 1);      // 판매한 아이템 인벤에서 삭제
+                    
+                    break;
+
+            }
+        }
     }
     internal class Program
     {

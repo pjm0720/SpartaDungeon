@@ -9,8 +9,8 @@ namespace SpartaDungeon
 {
     internal class Player
     {
-       
-        //생성자 이후에 set하지않겠다 -> 읽기전용
+        // set을 안썻을 경우
+        //생성자이후에 set하지않겠다 -> 읽기 전용이다
         public string Name { get; }  // 이름
         public string Job {  get; }  // 직업
         public int Level { get; }   // 레벨   

@@ -3,7 +3,7 @@
 namespace SpartaDungeon
 {
 
-    public enum ItemType
+    public enum ItemType   //아이템 타입 방어구,무기 설정 
     {
         WEAPON,
         ARMOR
@@ -17,9 +17,9 @@ namespace SpartaDungeon
         public int Def { get; }   //방어력
         public int Health { get; }  // 체력
         public int Price { get; }  //가격
-        public bool isEquipped { get; private set; }  // 장착했는지 안했는지 변경은 무조건 이 클래스 안에서만 하겠다.
+        public bool isEquipped { get; private set; }  //private set -> 장착했는지 안했는지 변경은 무조건 이 클래스 안에서만 하겠다 라는 뜻   
         public bool isPurchased { get; private set; } // 아이템 구매 여부
-        public Item(string name, string desc, ItemType type, int atk, int def, int health, int price, bool isEquipped = false, bool isPurchased = false) //안적으면 false 안낀걸로 하기
+        public Item(string name, string desc, ItemType type, int atk, int def, int health, int price, bool isEquipped = false, bool isPurchased = false) //is Equipped = false, isPurchased = false ->생성할 때 쓰지않으면 false, 안 한걸로 하겠다.
         {
             Name = name;
             Desc = desc;
@@ -34,7 +34,7 @@ namespace SpartaDungeon
         // 아이템 정보를 보여줄 때 타입이 비슷한게 2개있다
         // 1.인벤토리에서 그냥 내가 어느 아이템을 갖고있는지 보여줄 때
         // 2.장착 관리에서 내가 어떤 아이템을 낄지 말지 결정할 때
-        internal void PrintItemStatDescription(bool withNumber = false, int idx = 0)
+        internal void PrintItemStatDescription(bool withNumber = false, int idx = 0)   
         {
             Console.Write("- ");
             if (withNumber)
@@ -50,7 +50,7 @@ namespace SpartaDungeon
                 Console.Write("E");
                 Console.ResetColor();
                 Console.Write("]");
-                Console.Write(ConsoleUtility.PadRightForMixedText(Name, 9));
+                Console.Write(ConsoleUtility.PadRightForMixedText(Name, 9));    
             }
             else
             {
@@ -58,10 +58,10 @@ namespace SpartaDungeon
             }
 
             Console.Write(" | ");
-
+            // 장비스탯 플레이어 스탯에 반영시키기
             if (Atk != 0)
             {
-                Console.Write($"공격력 {(Atk >= 0 ? "+" : "")}{Atk}");
+                Console.Write($"공격력 {(Atk >= 0 ? "+" : "")}{Atk}");   // 3항 연산자 사용
             }
             if (Def != 0)
             {
@@ -84,7 +84,7 @@ namespace SpartaDungeon
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.Write("{0 }", idx);
+                Console.Write("{0}", idx);
                 Console.ResetColor();
             }
             else
