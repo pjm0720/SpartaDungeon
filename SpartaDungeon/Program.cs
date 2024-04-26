@@ -24,11 +24,11 @@ namespace SpartaDungeon
             player = new Player("모험가", "전사", 1, 10, 5, 100, 1500);
 
             inventory = new List<Item>();  //인벤토리에 아이템 리스트로 생성
-            
+
             inventory.Add(new Item("천 갑옷", "갑옷인데 안전은 보장못합니다.", ItemType.ARMOR, 0, 2, 0, 450));
             inventory.Add(new Item("뾰족한 창", "찌르기에 특화된 무기.", ItemType.WEAPON, 3, 0, 0, 800));
             inventory.Add(new Item("낡은 검", "곧 부서질 것 같다.", ItemType.WEAPON, 2, 0, 0, 450));
-          
+
             storeInventory = new List<Item>();
 
             storeInventory.Add(new Item("철 갑옷", "튼튼한 갑옷.", ItemType.ARMOR, 0, 5, 0, 1200));
@@ -45,7 +45,7 @@ namespace SpartaDungeon
         }
 
         private void MainMenu()
-        {   
+        {
             // 구성
             //0. 화면정리
             Console.Clear();
@@ -148,7 +148,7 @@ namespace SpartaDungeon
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
-            for (int i = 0; i < inventory.Count;i++)
+            for (int i = 0; i < inventory.Count; i++)
             {
                 inventory[i].PrintItemStatDescription(true, i + 1);  // 나가기는 0번 고정 나머지는 1번부터 배정
             }
@@ -256,9 +256,9 @@ namespace SpartaDungeon
                     }
                     break;
             }
-        }
-
+        }  
         
+
     }
     internal class Program
     {

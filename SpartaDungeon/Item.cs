@@ -19,7 +19,6 @@ namespace SpartaDungeon
         public int Price { get; }  //가격
         public bool isEquipped { get; private set; }  // 장착했는지 안했는지 변경은 무조건 이 클래스 안에서만 하겠다.
         public bool isPurchased { get; private set; } // 아이템 구매 여부
-
         public Item(string name, string desc, ItemType type, int atk, int def, int health, int price, bool isEquipped = false, bool isPurchased = false) //안적으면 false 안낀걸로 하기
         {
             Name = name;
@@ -38,7 +37,7 @@ namespace SpartaDungeon
         internal void PrintItemStatDescription(bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
-            if (withNumber)  
+            if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.Write($"{idx} ");
@@ -81,10 +80,10 @@ namespace SpartaDungeon
         public void PrintStoreItemDescription(bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
-            
+
             if (withNumber)
             {
-                Console.ForegroundColor= ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.Write("{0 }", idx);
                 Console.ResetColor();
             }
@@ -123,7 +122,7 @@ namespace SpartaDungeon
                 ConsoleUtility.PrintTextHightlights("", Price.ToString(), " G");
             }
         }
-
+      
         internal void ToggleEquipStatus()
         {
             isEquipped = !isEquipped;
